@@ -1,39 +1,26 @@
 package pl.zajavka.infrastructure.database.repository;
 
-import org.hibernate.Session;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Repository;
 import pl.zajavka.business.dao.CarServiceRequestDAO;
-import pl.zajavka.infrastructure.configuration.HibernateUtil;
-import pl.zajavka.infrastructure.database.entity.CarServiceRequestEntity;
+import pl.zajavka.domain.CarServiceRequest;
+import pl.zajavka.infrastructure.database.repository.jpa.CarServiceRequestJpaRepository;
+import pl.zajavka.infrastructure.database.repository.mapper.CarServiceRequestEntityMapper;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+@Repository
+@AllArgsConstructor
 public class CarServiceRequestRepository implements CarServiceRequestDAO {
 
+    private final CarServiceRequestJpaRepository carServiceRequestJpaRepository;
+    private final CarServiceRequestEntityMapper carServiceRequestEntityMapper;
+
     @Override
-    public Set<CarServiceRequestEntity> findActiveServiceRequestsByCarVin(String carVin) {
-        try (Session session = HibernateUtil.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            session.beginTransaction();
-
-            String query = """
-                SELECT sr FROM CarServiceRequestEntity sr
-                WHERE
-                sr.car.vin = :vin
-                AND sr.completedDateTime IS NULL
-                """;
-
-            List<CarServiceRequestEntity> result = session
-                .createQuery(query, CarServiceRequestEntity.class)
-                .setParameter("vin", carVin)
-                .list();
-
-            session.getTransaction().commit();
-            return new HashSet<>(result);
-        }
+    public Set<CarServiceRequest> findActiveServiceRequestsByCarVin(String carVin) {
+        return carServiceRequestJpaRepository.findActiveServiceRequestsByCarVin(carVin).stream()
+            .map(carServiceRequestEntityMapper::mapFromEntity)
+            .collect(Collectors.toSet());
     }
 }

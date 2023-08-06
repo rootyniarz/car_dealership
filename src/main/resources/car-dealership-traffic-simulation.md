@@ -4,46 +4,7 @@
 [//]: # (Poniżej znajdziesz wpisy reprezentujące działania użytkownika. Zastanów się nad schematem / wzorcem pojedynczego wpisu.)
 [//]: # (Przy niektórych wpisach znajdziesz komentarz.)
 
-[//]: # (Najpierw stwórzmy podstawy działania salonu samochodowego)
-
-[//]: # (Inicjujemy sprzedawców)
-[//]: # (name;surname;pesel)
-INIT -> SALESMAN -> Stefan;Sprzedawca;67020499436
-INIT -> SALESMAN -> Agnieszka;Samochodowa;73021314515
-INIT -> SALESMAN -> Tomasz;Kombi;55091699846
-INIT -> SALESMAN -> Rafał;Dach;62081825675
-
-[//]: # (Inicjujemy mechaników)
-[//]: # (name;surname;pesel)
-INIT -> MECHANIC -> Robert;Śrubokręt;52070997836
-INIT -> MECHANIC -> Zygmunt;Naprawa;83011863727
-INIT -> MECHANIC -> Remigiusz;Alufelga;67111396321
-
-[//]: # (Inicjujemy samochody na sprzedaż)
-[//]: # (vin;brand;model;year;color;price)
-INIT -> CAR -> 1FT7X2B60FEA74019;BMW;Series 1;2020;black;20000
-INIT -> CAR -> 1N6BD06T45C416702;BMW;Series 3;2020;black;30000
-INIT -> CAR -> 1G1PE5S97B7239380;BMW;Series 3;2020;black;30000
-INIT -> CAR -> 1GCEC19X27Z109567;BMW;Series 5;2020;black;40000
-INIT -> CAR -> 2C3CDYAG2DH731952;BMW;Series 5;2020;black;40000
-INIT -> CAR -> 1GB6G5CG1C1105936;BMW;Series 7;2020;black;60000
-
-[//]: # (Inicjujemy katalog usług serwisu)
-[//]: # (service_code;description;price)
-INIT -> SERVICE -> 58394-014;Wymiana koła;240.20
-INIT -> SERVICE -> 55319-866;Strojenie koła;50.20
-INIT -> SERVICE -> 0008-0407;Wymiana oleju;140.15
-INIT -> SERVICE -> 43063-180;Wymiana korka do oleju;17.19
-INIT -> SERVICE -> 14222-2022;Wymiana filtra paliwa;14.98
-
-[//]: # (Inicjujemy katalog części serwisu)
-[//]: # (serial_number;description;price)
-INIT -> PART -> 11523-7310;Koło;320.11
-INIT -> PART -> 54340-777;Olej;270.18
-INIT -> PART -> 68180-556;Korek do oleju;140.15
-INIT -> PART -> 0268-1264;Filtr powietrza;90.19
-
-[//]: # (Teraz zasymulujmy sytuację, gdzie nowy klient kupuje samochód)
+[//]: # (Teraz zasymulujmy sytuację, gdzie klient kupuje samochód)
 [//]: # (name;surname;telephone;email;country;city;postal_code;address)
 BUY_FIRST_TIME -> CUSTOMER -> Alfred;Samochodowy;+48 754 552 234;alf.samoch@gmail.com;Polska;Wrocław;20-001;Bokserska 15 -> CAR -> 1G1PE5S97B7239380 -> SALESMAN -> 73021314515
 BUY_FIRST_TIME -> CUSTOMER -> Monika;Cybulska;+48 458 774 125;mon.cyb@gmail.com;Polska;Wrocław;30-001;Wesoła 24 -> CAR -> 1FT7X2B60FEA74019 -> SALESMAN -> 55091699846
@@ -55,8 +16,8 @@ BUY_FIRST_TIME -> CUSTOMER -> Marek;Marek;+48 587 566 234;mar.mar@gmail.com;Pols
 BUY_AGAIN -> CUSTOMER -> alf.samoch@gmail.com -> CAR -> 2C3CDYAG2DH731952 -> SALESMAN -> 55091699846
 
 [//]: # (Następnie klient taki przyprowadza samochód do warsztatu i dokonuje naprawy)
-SERVICE_REQUEST -> CUSTOMER -> alf.samoch@gmail.com -> CAR -> 2C3CDYAG2DH731952 -> WHAT -> Koło mi odpadło 
-SERVICE_REQUEST -> CUSTOMER -> tom.zim@gmail.com -> CAR -> 1GCEC19X27Z109567 -> WHAT -> Olej mi cieknie na stopy 
+SERVICE_REQUEST -> CUSTOMER -> alf.samoch@gmail.com -> CAR -> 2C3CDYAG2DH731952 -> WHAT -> Koło mi odpadło
+SERVICE_REQUEST -> CUSTOMER -> tom.zim@gmail.com -> CAR -> 1GCEC19X27Z109567 -> WHAT -> Olej mi cieknie na stopy
 
 [//]: # (Teraz do warsztatu przychodzą klienci, którzy nie kupili samochodu u tego dealera)
 SERVICE_REQUEST -> CUSTOMER -> Adrian;Paczkomat;+48 991 221 123;adr.paczk@gmail.com;Polska;Szczecin;10-001;Górna 15 -> CAR -> 1N4BA41E18C806520;BMW;Series 1;2015 -> WHAT -> Coś nie działa prawidłowo

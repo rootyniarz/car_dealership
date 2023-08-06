@@ -1,11 +1,11 @@
 package pl.zajavka.business.dao;
 
-import pl.zajavka.infrastructure.database.entity.CarServiceRequestEntity;
-import pl.zajavka.infrastructure.database.entity.ServiceMechanicEntity;
-import pl.zajavka.infrastructure.database.entity.ServicePartEntity;
+import pl.zajavka.domain.CarServiceRequest;
+import pl.zajavka.domain.ServiceMechanic;
+import pl.zajavka.domain.ServicePart;
 
 public interface ServiceRequestProcessingDAO {
-    void process(CarServiceRequestEntity serviceRequest, ServiceMechanicEntity serviceMechanicEntity);
+    void process(CarServiceRequest serviceRequest, ServiceMechanic serviceMechanic);
 
-    void process(CarServiceRequestEntity serviceRequest, ServiceMechanicEntity serviceMechanicEntity, ServicePartEntity servicePartEntity);
+    void process(CarServiceRequest serviceRequest, ServiceMechanic serviceMechanic, ServicePart servicePart);
 }
